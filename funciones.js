@@ -55,10 +55,7 @@ function TomarDimensiones(tipoPlatina) {
     }
 }
 
-
-
 /* Esta función valida el tipo de acero que se va a utilizar */
-
 
 function ValidarAcero(tipo) {
     while ((tipo != 1) && (tipo != 2)) {
@@ -78,6 +75,7 @@ function ValidarAcero(tipo) {
     }
 }
 
+/* Esta función valida que la cantidad de platinas sea un número entero >= 0 */
 
 function ValidarCantidad(ctd) {
     ctd = parseFloat(ctd);

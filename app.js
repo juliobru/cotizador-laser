@@ -3,6 +3,7 @@ en acero inoxidable y acero al carbono.
 el precio del corte se calcula multiplicando el perímetro por el precio por metro que depende del espesor y del material
 Así mismo se debe pasar el precio del material que depende del peso del material necesario por el precio por kg del material,
 con su correspondiente scrap.
+Luego se genera un carrito pidiendo la cantidad de cada tipo cotizado
 */
 
 
@@ -27,6 +28,10 @@ let parcial = 0;
 let IVAuru = 0.22;
 let totalN = NaN;     /*Variable normalizada a 2 digitos */
 let parcialN = NaN;   /*Variable normalizada a 2 digitos */
+let totalIVA = NaN;
+let totalIVAN;
+let totalIVAinc = NaN;
+let totalIVAincN;
 
 alert("Bienvenido al cotizador de platinas por corte laser")
 
@@ -61,7 +66,7 @@ do  {
     
     Precio(Espesor,tipoPlatina,tipoAcero);
 
-        cantidad = (prompt(`ha elegido cotizar una platina ${Platina} con ${Acero}\n${textoDim} de espesor = ${Espesor} mm\nel precio unitario de corte es: U$D ${PrecioCorte}\nel precio unitario de material es: U$D ${PrecioMaterial}\nintrotuzca la cantidad que quiere agragar a su carrito (0 para niniguna)`));
+        cantidad = (prompt(`ha elegido cotizar una platina ${Platina} en ${Acero}\n${textoDim} de espesor = ${Espesor} mm\nel precio unitario de corte es: U$D ${PrecioCorte}\nel precio unitario de material es: U$D ${PrecioMaterial}\nintrotuzca la cantidad que quiere agragar a su carrito (0 para niniguna)`));
         
         ValidarCantidad(cantidad);
         
