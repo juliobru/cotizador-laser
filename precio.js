@@ -42,7 +42,7 @@ function Precio(Esp, tipoPlatina, tipoAcero) {
                 PrecioCorte = PrecioCorte1;
             }
             else {
-                PrecioCorte = 1;
+                PrecioCorte = (1).toFixed(2);
             }
             Peso = Superficie * DensidadInox * Esp / 1000000;
             PrecioMaterial1 = (Peso * precioMaterialInox).toFixed(2);
@@ -50,7 +50,7 @@ function Precio(Esp, tipoPlatina, tipoAcero) {
                 PrecioMaterial = PrecioMaterial1;
             }
             else {
-                PrecioMaterial = 1;
+                PrecioMaterial = (1).toFixed(2);
             }
             break;
         case 2:
@@ -60,7 +60,7 @@ function Precio(Esp, tipoPlatina, tipoAcero) {
                 PrecioCorte = PrecioCorte1;
             }
             else {
-                PrecioCorte = 1;
+                PrecioCorte = (1).toFixed(2);
             }
             Peso = Superficie * DensidadCarbono * Esp / 1000000;
             PrecioMaterial1 = (Peso * precioMaterialCarbono).toFixed(2);
@@ -68,7 +68,7 @@ function Precio(Esp, tipoPlatina, tipoAcero) {
                 PrecioMaterial = PrecioMaterial1;
             }
             else {
-                PrecioMaterial = 1;
+                PrecioMaterial = (1).toFixed(2);
             }
             break;
 
