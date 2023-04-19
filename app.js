@@ -33,6 +33,11 @@ let totalIVAN;
 let totalIVAinc = NaN;
 let totalIVAincN;
 
+let newItem = [];
+let CarritoAmpliado = [];
+let totalgeneral = 0;
+
+
 alert("Bienvenido al cotizador de platinas por corte laser")
 
 do  {
@@ -48,6 +53,10 @@ do  {
     ladoB = NaN;
     textoDim = NaN;
     Espesor = NaN;
+
+
+
+
 
 
     
@@ -69,8 +78,14 @@ do  {
         cantidad = (prompt(`ha elegido cotizar una platina ${Platina} en ${Acero}\n${textoDim} de espesor = ${Espesor} mm\nel precio unitario de corte es: U$D ${PrecioCorte}\nel precio unitario de material es: U$D ${PrecioMaterial}\nintrotuzca la cantidad que quiere agragar a su carrito (0 para niniguna)`));
         
         ValidarCantidad(cantidad);
+      
         
         if(cantidad != 0) {
+           
+           
+           /* newItem = new CrearPlatina(item,Platina,Acero,textoDim,Espesor,PrecioCorte,PrecioMaterial,cantidad);
+            Carrito.push(newItem); */
+
             item = item + 1;
             unitario = Number(PrecioCorte) + Number(PrecioMaterial);
             unitarioN = (unitario).toFixed(2)
@@ -79,6 +94,9 @@ do  {
             parcialN = (parcial).toFixed(2);
             totalN = (total).toFixed(2);
             carrito = carrito + `item ${item}.- platina ${Platina} de ${Acero} ${textoDim} espesor ${Espesor} mm\nPrecio Unitario U$D${unitarioN} CANTIDAD: ${cantidad} Subtotal U$D ${parcialN}\n`;
+
+            Carrito[item] = new CrearPlatina(item,Platina,Acero,textoDim,Espesor,PrecioCorte,PrecioMaterial,cantidad);
+            console.log (Carrito[item]);
             cantidad = NaN;
             parcial = 0;
         }
@@ -95,6 +113,16 @@ totalIVAincN = (totalIVAinc).toFixed(2);
 
 
 if(total != 0 || total == NaN) {
+    console.table(Carrito);
+    for (let i = 1; i < Carrito.length; i++) {
+        console.log(Carrito[i]);
+        totalgeneral = totalgeneral + parseFloat(Carrito[i,9])
+        console.log(totalgeneral);
+        console.log(Carrito[i][9]);
+        
+    }
+    console.log(totalgeneral)
+    
     alert(`Su carrito de compra consta de:\n${carrito}\nEl TOTAL de su carrito es: U$D${totalN} + IVA  U$D${totalIVAN} = U$D${totalIVAincN}`);
 }else {
     alert(`su carrito esta vacio, gracias por usar nuesto cotizador`);
