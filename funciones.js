@@ -90,3 +90,57 @@ function ValidarCantidad(ctd) {
     cantidad = ctd;
 }
 
+/* Estas dos funciones validan el tipo de modificación (Agregar/Eliminar/Modificar/Salir) */
+
+function ValidarModificarCarrito(modCar) {
+    texto2 = "Para Modificar la cantidad de un item ingrese: Modificar\nPara eliminar un item ingrese Eliminar";
+    modCar = modCar.toLowerCase();
+    modCar = modCar.substring(0,1);
+    AjusteOpcionMod(modCar);
+    modCar = modCarg;
+   
+    while(modCar != "Modificar" && modCar != "Eliminar" && modCar != "Agregar" && modCar != "Salir" ) {
+            modCar = prompt(`No ha ingresado una opción valida\n${texto2}\nPara agregar un Item ingrese Agregar\nPara Confirmar su Carrito ingrse Salir`)
+            AjusteOpcionMod(modCar);
+            modCar = modCarg;
+    }
+    modificarCarrito = modCar;
+}
+
+function AjusteOpcionMod(modCarf) {
+    modCarg = 'X';
+    switch(modCarf) {
+        case "m":
+            if(Carrito.length == 0) {texto2=`no hay items en su carrito la opción Modificar/Eliminar no son válida`
+            }else{
+            modCarg = "Modificar";}
+        break;
+        case "e":
+            if(Carrito.length == 0) {texto2=`no hay items en su carrito la opción Modificar/Eliminar no son válida`
+        }else{
+            modCarg = "Eliminar";}
+        break;
+        case "a":
+            modCarg = "Agregar";
+        break;
+        case "s":
+            modCarg = "Salir";
+        break;
+    }
+}
+
+/* Esta función valida el número de item que queremos modificar */
+
+function ValidarItemElMo(numItem) {
+    NumerototalItems = Carrito.length;
+    
+    
+    while(isNaN(numItem) || numItem < 0 || numItem > NumerototalItems || numItem == "") {
+        numItem = prompt(`ingrese el número de item que desea ${textoitem}, debe ser un numero entre 1 y ${NumerototalItems}`)
+        numItem= parseInt(numItem);
+    }
+    console.log(numItem)
+    ItemArray = numItem;
+
+}
+

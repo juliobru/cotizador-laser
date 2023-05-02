@@ -4,6 +4,7 @@ el precio del corte se calcula multiplicando el perímetro por el precio por met
 Así mismo se debe pasar el precio del material que depende del peso del material necesario por el precio por kg del material,
 con su correspondiente scrap.
 Luego se genera un carrito pidiendo la cantidad de cada tipo cotizado
+Finalmente se le dan las opciones al usuario de Modificar la cantidad, agregar, eliminar, de un item del carrito o salir.
 */
 
 
@@ -26,16 +27,22 @@ let total = 0;
 let carrito = '';
 let parcial = 0;
 let IVAuru = 0.22;
-let totalN = NaN;     /*Variable normalizada a 2 digitos */
-let parcialN = NaN;   /*Variable normalizada a 2 digitos */
+let totalN = NaN;     
+let parcialN = NaN;   
 let totalIVA = NaN;
 let totalIVAN;
-let totalIVAinc = NaN;
-let totalIVAincN;
-
-let newItem = [];
-let CarritoAmpliado = [];
+let totalconIVA = 0;
 let totalgeneral = 0;
+let Carrito = [];
+let ACarrito =[];
+let textoitem = NaN;
+let texto1= "";
+let texto2= '';
+let ItemArray = -1;
+let modCarg = "";
+
+
+
 
 
 alert("Bienvenido al cotizador de platinas por corte laser")
@@ -55,75 +62,88 @@ do  {
     Espesor = NaN;
 
 
-
-
-
-
-    
-
-
-
-    tipoPlatina = parseInt(prompt("patina cuadrada ingrese 1 \nplatina rectangular ingrese 2 \nplatina circular ingrese 3"));
-    ValidarForma(tipoPlatina);
-    TomarDimensiones(tipoPlatina);
-    
-    tipoAcero = parseInt(prompt("Material: Acero Inoxidable => ingrese: 1 \nMaterial: Acero Carbono => ingrese: 2"));
-    ValidarAcero(tipoAcero);
-        
-    Espesor = Number(prompt("ingrese el espesor de la platina en mm:"));
-    ValidarEspor(Espesor, tipoAcero);
-    
-    Precio(Espesor,tipoPlatina,tipoAcero);
-
-        cantidad = (prompt(`ha elegido cotizar una platina ${Platina} en ${Acero}\n${textoDim} de espesor = ${Espesor} mm\nel precio unitario de corte es: U$D ${PrecioCorte}\nel precio unitario de material es: U$D ${PrecioMaterial}\nintrotuzca la cantidad que quiere agragar a su carrito (0 para niniguna)`));
-        
-        ValidarCantidad(cantidad);
-      
-        
-        if(cantidad != 0) {
-           
-           
-           /* newItem = new CrearPlatina(item,Platina,Acero,textoDim,Espesor,PrecioCorte,PrecioMaterial,cantidad);
-            Carrito.push(newItem); */
-
-            item = item + 1;
-            unitario = Number(PrecioCorte) + Number(PrecioMaterial);
-            unitarioN = (unitario).toFixed(2)
-            parcial = unitario * cantidad;
-            total = total + parcial;
-            parcialN = (parcial).toFixed(2);
-            totalN = (total).toFixed(2);
-            carrito = carrito + `item ${item}.- platina ${Platina} de ${Acero} ${textoDim} espesor ${Espesor} mm\nPrecio Unitario U$D${unitarioN} CANTIDAD: ${cantidad} Subtotal U$D ${parcialN}\n`;
-
-            Carrito[item] = new CrearPlatina(item,Platina,Acero,textoDim,Espesor,PrecioCorte,PrecioMaterial,cantidad);
-            console.log (Carrito[item]);
-            cantidad = NaN;
-            parcial = 0;
-        }
-
+    IngresoPlatina()
     continuo = prompt("quiere cotizar otro platina \n s para continuar \n cualquier otro caracter para salir");
 
 } while((continuo == "s") || (continuo == "S") || (continuo == "si") || (continuo == "SI") )
 
-total = parseFloat(total);
-totalIVA = total * IVAuru;
-totalIVAN = (totalIVA).toFixed(2);
-totalIVAinc = total + totalIVA;
-totalIVAincN = (totalIVAinc).toFixed(2);
-
-
-if(total != 0 || total == NaN) {
-    console.table(Carrito);
-    for (let i = 1; i < Carrito.length; i++) {
-        console.log(Carrito[i]);
-        totalgeneral = totalgeneral + parseFloat(Carrito[i,9])
-        console.log(totalgeneral);
-        console.log(Carrito[i][9]);
-        
-    }
-    console.log(totalgeneral)
-    
-    alert(`Su carrito de compra consta de:\n${carrito}\nEl TOTAL de su carrito es: U$D${totalN} + IVA  U$D${totalIVAN} = U$D${totalIVAincN}`);
+if(Carrito.length == 0) {
+    modificarCarrito = "Agregar";
 }else {
-    alert(`su carrito esta vacio, gracias por usar nuesto cotizador`);
+    modificarCarrito = NaN;
 }
+
+do {
+        if(Carrito.length != 0 || modificarCarrito == "Agregar") {
+            textCarrito = "!!";
+            ImprimirCarrito();
+            
+            ValidarModificarCarrito(modificarCarrito);
+                switch(modificarCarrito){
+                    case "Eliminar":
+                        if(Carrito.length == 1){
+                            ItemArray = 1;
+                        }else{
+                        textoitem = "Eliminar"
+                        ItemArray = prompt(`ingrese el número de item que desea ${textoitem}`)
+                        ValidarItemElMo(ItemArray);
+                        }
+                       
+                        Carrito.splice(ItemArray-1,1);                    
+                
+ 
+                        NuevoCarrito = Carrito.map((elemento,index)=> {return {item: elemento.item=index+1,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad,unitarioN: elemento.unitarioN,parcialN:elemento.parcialN}})   
+                        Carrito = NuevoCarrito;
+                        modificarCarrito = "Agregar";
+                        break;
+                    
+                    case "Agregar":
+                        IngresoPlatina();
+                    break;
+
+                    case "Modificar":
+                        textoitem = "Modificar";
+                        if(Carrito.length == 1){
+                            ItemArray = 1;
+                        }else{
+                        ItemArray = prompt(`ingrese el número de item que desea ${textoitem}`)
+                        ValidarItemElMo(ItemArray);
+                        }
+                        console.log(ItemArray);
+
+                        LineaModificar = Carrito.filter((itemM) => itemM.item == ItemArray);
+                        console.table(LineaModificar);
+
+                        LineaModificar.forEach((ItemModificar) => {
+                            texto1 = `platina ${ItemModificar.Platina} en ${ItemModificar.Acero}\n${ItemModificar.textoDim} de espesor = ${ItemModificar.espesor} mm\nel precio unitario de corte es: U$D ${ItemModificar.PrecioCorte}\nel precio unitario de material es: U$D ${ItemModificar.PrecioMaterial}\nintrotuzca la cantidad que quiere agragar a su carrito (0 para niniguna)`
+                        });
+                                            
+                        
+                      
+                        cantidad = (prompt(texto1));
+                        ValidarCantidad(cantidad);
+                        NuevoCarrito = Carrito.map(function (elemento) {
+                            if(elemento.item != ItemArray) 
+                            return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad,unitarioN: elemento.unitarioN,parcialN:elemento.parcialN=elemento.parcialN} 
+                            {return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad = cantidad,unitarioN: elemento.unitarioN,parcialN: elemento.parcialN = elemento.unitarioN*cantidad}
+                        }})
+                            Carrito = NuevoCarrito
+                           
+
+                    case "Salir":
+                        if(totalgeneral != 0) {
+                        textCarrito = "Gracias por su compra !!";
+                        }else{
+                            textCarrito = `su carrito esta vacio, gracias por usar nuesto cotizador`;
+                        }
+                    break;
+
+                }
+        }else {
+            modificarCarrito = "Salir"
+            textCarrito = `su carrito esta vacio, gracias por usar nuesto cotizador`;
+        }
+
+
+    } while(modificarCarrito != "Salir") 
+    alert(textCarrito)

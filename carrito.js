@@ -1,6 +1,18 @@
-let Carrito = [];
+/* este es el constructor del carrito con los tipos de Platina que define el usuario */
 
-class CrearPlatina {
+class Platinadef {
+
+    item;
+    Platina;
+    Acero;
+    textoDim;
+    espesor;
+    PrecioCorte;
+    PrecioMaterial;
+    cantidad;
+    unitarioN;
+    parcialN;
+
     constructor(item,Platina,Acero,textoDim,espesor,PrecioCorte,PrecioMaterial,cantidad,unitarioN,parcialN){
         this.item = item;
         this.Platina = Platina;
@@ -13,18 +25,7 @@ class CrearPlatina {
         this.unitarioN = parseFloat((Number(this.PrecioCorte) + Number(this.PrecioMaterial)).toFixed(2));
         this.parcialN = parseFloat((this.unitarioN * this.cantidad).toFixed(2));
     }
-     
-    
-    totalgeneral() {
-        let totalg = 0;
-        for(let i = 0; i < Carrito.length; i++) {
-            totalg = totalg + this.parcialN;
-        }    
-            return (totalg).toFixed(2);
 
-         
-
-    }
 }
 
 

@@ -60,27 +60,32 @@ function ValidarEspor(Esp, tipo) {
             while (Esp < EspCarbMin || Esp > EspCarbMax || isNaN(Esp)) {
                 Esp = Number(prompt(`el espesor debe ser mayor que ${EspCarbMin} y menor que ${EspCarbMax}\ningrese otro espesor en mm:`))
             }
-
             for (let i = 0; i < EspCarbCant; i++) {
                 siguiente = i + 1;
                 console.log(EspCarbono[i]);            /* estas dos impresiones por consola se mantienen */
                 console.log(EspCarbono[siguiente]);    /* intentan mostrar como es el proceso de búsqueda de material */
-                if (Esp > EspCarbono[i] && Esp < EspCarbono[siguiente]) {
-                    let Seleccion = parseInt(prompt(`su espesor no es normalizado\nelija espesor normalizado\n ingrese 1 para ${EspCarbono[i]}\n ingrese 2 para ${EspCarbono[siguiente]} mm`));
-                    while (Seleccion != 1 && Seleccion != 2) {
-                        Seleccion = parseInt(prompt(`solo puede ingresar 1 o 2\n elija espesor normalizado\n ingrese 1 para ${EspCarbono[i]}\n ingrese 2 para ${EspCarbono[siguiente]} mm`));
+                if (EspCarbono[i] == Esp) {            /* como se usa break para no seguir el bucle for, una vez identificado */
+                    Espesor = EspCarbono[i];
+                    break;
+                } else {
+
+                    if (Esp > EspCarbono[i] && Esp < EspCarbono[siguiente]) {
+                        let Seleccion = parseInt(prompt(`su espesor no es normalizado\nelija espesor normalizado\n ingrese 1 para ${EspCarbono[i]} mm\n ingrese 2 para ${EspCarbono[siguiente]} mm`));
+                        while (Seleccion != 1 && Seleccion != 2) {
+                            Seleccion = parseInt(prompt(`solo puede ingresar 1 o 2\n elija espesor normalizado\n ingrese 1 para ${EspCarbono[i]} mm\n ingrese 2 para ${EspCarbono[siguiente]} mm`));
+                        }
+                        switch (Seleccion) {
+                            case 1:
+                                Espesor = EspCarbono[i];
+                                break;
+                            case 2:
+                                Espesor = EspCarbono[siguiente];
+                                break;
+                        }break;
                     }
-                    switch (Seleccion) {
-                        case 1:
-                            Espesor = EspCarbono[i];
-                            break;
-                        case 2:
-                            Espesor = EspCarbono[siguiente];
-                            break;
-                    }break;
+
                 }
             }
             break;
-
     }
 }
