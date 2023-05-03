@@ -30,9 +30,8 @@ function ValidarEspor(Esp, tipo) {
             }
             for (let i = 0; i < EspInoxCant; i++) {
                 siguiente = i + 1;
-                console.log(EspInox[i]);            /* estas dos impresiones por consola se mantienen */
-                console.log(EspInox[siguiente]);    /* intentan mostrar como es el proceso de búsqueda de material */
-                if (EspInox[i] == Esp) {            /* como se usa break para no seguir el bucle for, una vez identificado */
+
+                if (EspInox[i] == Esp) {           
                     Espesor = EspInox[i];
                     break;
                 } else {
@@ -62,9 +61,8 @@ function ValidarEspor(Esp, tipo) {
             }
             for (let i = 0; i < EspCarbCant; i++) {
                 siguiente = i + 1;
-                console.log(EspCarbono[i]);            /* estas dos impresiones por consola se mantienen */
-                console.log(EspCarbono[siguiente]);    /* intentan mostrar como es el proceso de búsqueda de material */
-                if (EspCarbono[i] == Esp) {            /* como se usa break para no seguir el bucle for, una vez identificado */
+ 
+                if (EspCarbono[i] == Esp) {            
                     Espesor = EspCarbono[i];
                     break;
                 } else {

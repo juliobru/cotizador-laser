@@ -12,7 +12,7 @@ function ImprimirCarrito() {
             if(Carrito.length == 0) {
                 texto3 = `Para agregar un item ingrese: Agregar\nPara Salir del cotizador ingrese: Salir`;
             }else {
-                texto3 = `Para modificar la cantidad de un item ingrese: Modificar\nPara agregar un Item ingrese Agregar\nPara eliminar un item ingrese Eliminar\nPara Confirmar su Carrito ingrse Salir`;
+                texto3 = `Para modificar la cantidad de un item ingrese: Modificar\nPara agregar un Item ingrese Agregar\nPara eliminar un item ingrese Eliminar\nPara modificar el espesor de todas las platinas de un mismo material ingresar: Cambio\nPara Confirmar su Carrito ingrse Salir`;
 
             }
             modificarCarrito =prompt(`Su carrito de compra consta de:\n${carrito}\nEl TOTAL de su carrito es: U$D${totalgeneral} + IVA  U$D${totalIVA} = U$D${totalconIVA}\n${texto3}`);

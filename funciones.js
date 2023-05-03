@@ -93,14 +93,14 @@ function ValidarCantidad(ctd) {
 /* Estas dos funciones validan el tipo de modificación (Agregar/Eliminar/Modificar/Salir) */
 
 function ValidarModificarCarrito(modCar) {
-    texto2 = "Para Modificar la cantidad de un item ingrese: Modificar\nPara eliminar un item ingrese Eliminar";
+    texto2 = "Para modificar la cantidad de un item ingrese: Modificar\nPara eliminar un item ingrese: Eliminar";
     modCar = modCar.toLowerCase();
     modCar = modCar.substring(0,1);
     AjusteOpcionMod(modCar);
     modCar = modCarg;
    
-    while(modCar != "Modificar" && modCar != "Eliminar" && modCar != "Agregar" && modCar != "Salir" ) {
-            modCar = prompt(`No ha ingresado una opción valida\n${texto2}\nPara agregar un Item ingrese Agregar\nPara Confirmar su Carrito ingrse Salir`)
+    while(modCar != "Modificar" && modCar != "Eliminar" && modCar != "Agregar" && modCar != "Salir" && modCar != "Cambio" ) {
+            modCar = prompt(`No ha ingresado una opción valida\n${texto2}\nPara agregar un Item ingrese Agregar\nPara modificar el espesor de todas las platinas de un mismo material ingresar: Cambio\nPara Confirmar su Carrito ingrse Salir`)
             AjusteOpcionMod(modCar);
             modCar = modCarg;
     }
@@ -123,6 +123,10 @@ function AjusteOpcionMod(modCarf) {
         case "a":
             modCarg = "Agregar";
         break;
+        case "c":
+            modCarg = "Cambio";
+        break;
+
         case "s":
             modCarg = "Salir";
         break;

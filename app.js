@@ -40,6 +40,9 @@ let texto1= "";
 let texto2= '';
 let ItemArray = -1;
 let modCarg = "";
+let textoAcero;
+let esp;
+let CambioMaterial1 = [];
 
 
 
@@ -125,10 +128,59 @@ do {
                         NuevoCarrito = Carrito.map(function (elemento) {
                             if(elemento.item != ItemArray) 
                             return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad,unitarioN: elemento.unitarioN,parcialN:elemento.parcialN=elemento.parcialN} 
-                            {return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad = cantidad,unitarioN: elemento.unitarioN,parcialN: elemento.parcialN = elemento.unitarioN*cantidad}
+                            {return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad = cantidad,unitarioN: elemento.unitarioN,parcialN: elemento.parcialN = Number((elemento.unitarioN*cantidad).toFixed(2))}
                         }})
-                            Carrito = NuevoCarrito
-                           
+                            Carrito = NuevoCarrito;
+                        break;
+                    
+                    case "Cambio":
+                        flag1 = 0;
+                        esp = parseFloat(prompt('Indique el espesor que desea modificar'));
+                        tipoA = parseInt(prompt('indique el material que desea modificar\n1.-Para Acero Inox\n2.-Para Acero al carbono'));
+                        ValidarAcero(tipoA);
+                        Nuevoesp = Number(prompt('Indique el nuevo espesor que desea utilizar'));
+                        ValidarEspor(Nuevoesp, tipoA);
+                        Nuevoesp = Espesor;
+                        switch(tipoA){
+                            case 1 : textoAcero= 'Acero Inoxidable';break;
+                            case 2 : textoAcero= 'Acero al Carbono';break;
+                        }
+                        CambioMaterial1 = Carrito.filter((elemento) => (elemento.espesor == esp && elemento.Acero == textoAcero ))
+                        Carrito = Carrito.map( function (elemento) { if (elemento.espesor == esp && elemento.Acero == textoAcero ) {
+                            flag1 = 1;
+                            tipoPst = elemento.Platina;
+                            Qty = elemento.cantidad;
+                            textoDimRec = elemento.textoDim;
+                            dimSt = textoDimRec.replace(/[^0-9]+/g, "");
+                            dimSt = Number(dimSt);
+                            switch(tipoPst){
+                                case 'cuadrada': tipoP = 1; LadoCuadrado = (dimSt); break;
+                                case 'rectangular': tipoP =2;
+                                ladoAt = textoDimRec.slice(0,20);
+                                ladoA = Number(ladoAt.replace(/[^0-9]+/g, ""));
+                                ladoBt = textoDimRec.slice(20);
+                                ladoB = Number(ladoBt.replace(/[^0-9]+/g, ""));
+                                break;
+                                case 'circular': tipoP = 3; Diametro = (dimSt); break;
+                            }
+                            Precio(Nuevoesp, tipoP, tipoA);
+                            PrecioCorte = Number(PrecioCorte);
+                            PrecioMaterial = Number(PrecioMaterial);
+                            PrecioCorteC = `${PrecioCorte}`;
+                            PrecioMaterialC = `${PrecioMaterial}`;
+                            
+                            return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor = Nuevoesp,PrecioCorte: elemento.PrecioCorte = PrecioCorteC,PrecioMaterial: elemento.PrecioMaterial = PrecioMaterialC,cantidad: elemento.cantidad,unitarioN: elemento.unitarioN=Number((PrecioMaterial+PrecioCorte).toFixed(2)) ,parcialN: elemento.parcialN= Number(((PrecioMaterial+PrecioCorte)*Qty).toFixed(2))} 
+                            }
+                            {return {item: elemento.item,Platina: elemento.Platina,Acero: elemento.Acero,textoDim: elemento.textoDim,espesor: elemento.espesor,PrecioCorte: elemento.PrecioCorte,PrecioMaterial: elemento.PrecioMaterial,cantidad: elemento.cantidad,unitarioN: elemento.unitarioN,parcialN: elemento.parcialN = elemento.parcialN}        
+                            
+                            }});
+
+                            if(flag1==0) {alert(`el espesor ingresado: ${esp} no se encuentra en ${textoAcero}`)}
+                        
+                         /*   console.table(Carrito); */
+                    break;
+
+                      
 
                     case "Salir":
                         if(totalgeneral != 0) {
